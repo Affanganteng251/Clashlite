@@ -8,4 +8,8 @@ public class Armycamp extends Building {
     public Armycamp() {
         super("Army Camp");
     }
+
+    public int getCapacityBonus() {
+        return (level - 1) * 2; // tiap level tambah 2 slot kapasitas
+    }
 }

@@ -4,10 +4,15 @@
  */
 package service;
 
-import model.*;
-import exception.GameException;
-
 import java.util.Scanner;
+
+import exception.GameException;
+import model.Armycamp;
+import model.Barracks;
+import model.Building;
+import model.Player;
+import model.TownHall;
+import model.Troop;
 
 public class GameService {
     private Player player;
@@ -52,7 +57,6 @@ public class GameService {
     if (idx > 0 && idx <= buildings.size()) {
         Building b = buildings.get(idx - 1);
 
-        // biaya = 100 x level saat ini
         int cost = 100 * b.level;  
 
         if (b instanceof TownHall) {
@@ -65,15 +69,28 @@ public class GameService {
             System.out.println("Town Hall upgraded to Level " + b.level +
                                " (-" + cost + " Gold)");
 
-        } else if (b instanceof Barracks || b instanceof Armycamp) {
+        } else if (b instanceof Barracks) {
             if (player.getElixir() < cost) {
                 System.out.println("Not enough elixir! Need " + cost + " elixir.");
                 return;
             }
             player.spendElixir(cost);
             b.upgrade();
-            System.out.println(b.name + " upgraded to Level " + b.level +
-                               " (-" + cost + " Elixir)");
+            System.out.println("Barracks upgraded to Level " + b.level +
+                               " (-" + cost + " Elixir) → Troops stronger!");
+
+        } else if (b instanceof Armycamp) {
+            if (player.getElixir() < cost) {
+                System.out.println("Not enough elixir! Need " + cost + " elixir.");
+                return;
+            }
+            player.spendElixir(cost);
+            b.upgrade();
+
+            // Tambah kapasitas Army
+            player.getVillage().getArmy().increaseCapacity(2);
+            System.out.println("Army Camp upgraded to Level " + b.level +
+                               " (-" + cost + " Elixir) → Capacity increased!");
 
         } else {
             b.upgrade();
@@ -86,18 +103,37 @@ public class GameService {
 
 
 
+
     private void recruitTroop() {
     try {
         System.out.print("Enter troop type (Barbarian/Archer): ");
         String type = scanner.nextLine();
+
         if (!type.equalsIgnoreCase("Barbarian") && !type.equalsIgnoreCase("Archer")) {
             throw new GameException("Unknown troop type!");
         }
-        Troop t = new Troop(type, type.equalsIgnoreCase("Barbarian") ? 50 : 40);
-        player.getVillage().getArmy().addTroop(t);
-        player.spendElixir(50);
-        System.out.println(type + " recruited!");
 
+        // Cari Barracks untuk bonus power
+        Barracks barracks = null;
+        for (Building b : player.getVillage().getBuildings()) {
+            if (b instanceof Barracks) {
+                barracks = (Barracks) b;
+                break;
+            }
+        }
+        int basePower = type.equalsIgnoreCase("Barbarian") ? 50 : 40;
+        int bonus = (barracks != null) ? barracks.getTroopPowerBonus() : 0;
+
+        Troop t = new Troop(type, basePower + bonus);
+
+        boolean added = player.getVillage().getArmy().addTroop(t);
+        if (!added) {
+            System.out.println("Army Camp is full! Upgrade it to increase capacity.");
+            return;
+        }
+
+        player.spendElixir(50);
+        System.out.println(type + " recruited with power " + t.getPower() + "!");
         System.out.println("Current Army: " + player.getVillage().getArmy());
 
     } catch (GameException e) {
@@ -106,6 +142,7 @@ public class GameService {
         System.out.println("Something went wrong.");
     }
 }
+
 
     private void attack() {
     int totalPower = player.getVillage().getArmy().getTroops()

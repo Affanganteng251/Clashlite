@@ -8,13 +8,24 @@ import java.util.ArrayList;
 
 public class Army {
     private ArrayList<Troop> troops;
+    private int capacity;   // kapasitas maksimum
+    private int maxCapacity;
 
     public Army() {
         this.troops = new ArrayList<>();
+        this.maxCapacity = 5; // kapasitas awal 5 troop
     }
 
-    public void addTroop(Troop t) {
+    public boolean addTroop(Troop t) {
+        if (troops.size() >= maxCapacity) {
+            return false; // army penuh
+        }
         troops.add(t);
+        return true;
+    }
+
+    public void increaseCapacity(int amount) {
+        this.maxCapacity += amount;
     }
 
     public ArrayList<Troop> getTroops() { return troops; }
@@ -26,6 +37,6 @@ public class Army {
         for (Troop t : troops) {
             sb.append(t).append(", ");
         }
-        return sb.toString();
+        return sb.toString() + "(Capacity: " + troops.size() + "/" + maxCapacity + ")";
     }
 }

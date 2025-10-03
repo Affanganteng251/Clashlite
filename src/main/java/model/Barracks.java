@@ -8,4 +8,8 @@ public class Barracks extends Building {
     public Barracks() {
         super("Barracks");
     }
+
+    public int getTroopPowerBonus() {
+        return (level - 1) * 10; // +10 power per level upgrade
+    }
 }
