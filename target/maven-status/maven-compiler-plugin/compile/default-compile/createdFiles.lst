@@ -1,0 +1,11 @@
+MainApp\Main.class
+model\Army.class
+model\Village.class
+service\GameService.class
+exception\GameException.class
+model\Player.class
+model\Troop.class
+model\Barracks.class
+model\Armycamp.class
+model\TownHall.class
+model\Building.class
