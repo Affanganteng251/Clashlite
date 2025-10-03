@@ -19,32 +19,35 @@ public class GameService {
     private Scanner scanner = new Scanner(System.in);
 
     public void start() {
-        System.out.print("Enter your player name: ");
-        String name = scanner.nextLine();
-        player = new Player(name);
+    System.out.print("Enter your player name: ");
+    String name = scanner.nextLine();
+    player = new Player(name);
 
-        int choice;
-        do {
-            System.out.println("\n=== MENU ===");
-            System.out.println("1. Show Village");
-            System.out.println("2. Upgrade Building");
-            System.out.println("3. Recruit Troop");
-            System.out.println("4. Attack");
-            System.out.println("0. Exit");
-            System.out.print("Choose: ");
-            choice = scanner.nextInt();
-            scanner.nextLine();
+    int choice;
+    do {
+        System.out.println("\n=== MENU ===");
+        System.out.println("1. Show Village");
+        System.out.println("2. Upgrade Building");
+        System.out.println("3. Recruit Troop");
+        System.out.println("4. Attack");
+        System.out.println("5. Show Army");   // ✅ Tambahan opsi
+        System.out.println("0. Exit");
+        System.out.print("Choose: ");
+        choice = scanner.nextInt();
+        scanner.nextLine();
 
-            switch (choice) {
-                case 1 -> player.getVillage().showStatus();
-                case 2 -> upgradeBuilding();
-                case 3 -> recruitTroop();
-                case 4 -> attack();
-                case 0 -> System.out.println("Exiting game...");
-                default -> System.out.println("Invalid choice!");
-            }
-        } while (choice != 0);
-    }
+        switch (choice) {
+            case 1 -> player.getVillage().showStatus();
+            case 2 -> upgradeBuilding();
+            case 3 -> recruitTroop();
+            case 4 -> attack();
+            case 5 -> showArmy();   // ✅ Tambahan
+            case 0 -> System.out.println("Exiting game...");
+            default -> System.out.println("Invalid choice!");
+        }
+    } while (choice != 0);
+}
+
 
     private void upgradeBuilding() {
     System.out.println("Choose building to upgrade:");
@@ -101,9 +104,6 @@ public class GameService {
     }
 }
 
-
-
-
     private void recruitTroop() {
     try {
         System.out.print("Enter troop type (Barbarian/Archer): ");
@@ -143,6 +143,11 @@ public class GameService {
     }
 }
 
+    private void showArmy() {
+    System.out.println("\n=== Current Army ===");
+    System.out.println(player.getVillage().getArmy());
+}
+
 
     private void attack() {
     int totalPower = player.getVillage().getArmy().getTroops()
@@ -156,6 +161,9 @@ public class GameService {
     } else {
         System.out.println("Defeat! Train more troops.");
     }
+
+    player.getVillage().getArmy().getTroops().clear();
+    System.out.println("Your army has returned empty. You must recruit new troops!");
 }
 
 }
