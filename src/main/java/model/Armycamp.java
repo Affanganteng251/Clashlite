@@ -10,6 +10,6 @@ public class Armycamp extends Building {
     }
 
     public int getCapacityBonus() {
-        return (level - 1) * 2; // tiap level tambah 2 slot kapasitas
+        return (level - 1) * 2; 
     }
 }
