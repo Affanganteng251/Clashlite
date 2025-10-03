@@ -30,7 +30,7 @@ public class GameService {
         System.out.println("2. Upgrade Building");
         System.out.println("3. Recruit Troop");
         System.out.println("4. Attack");
-        System.out.println("5. Show Army");   // ✅ Tambahan opsi
+        System.out.println("5. Show Army");   
         System.out.println("0. Exit");
         System.out.print("Choose: ");
         choice = scanner.nextInt();
@@ -47,7 +47,6 @@ public class GameService {
         }
     } while (choice != 0);
 }
-
 
     private void upgradeBuilding() {
     System.out.println("Choose building to upgrade:");
@@ -104,6 +103,11 @@ public class GameService {
     }
 }
 
+private void showArmy() {
+    System.out.println("\n=== Current Army ===");
+    System.out.println(player.getVillage().getArmy());
+}
+
     private void recruitTroop() {
     try {
         System.out.print("Enter troop type (Barbarian/Archer): ");
@@ -142,12 +146,6 @@ public class GameService {
         System.out.println("Something went wrong.");
     }
 }
-
-    private void showArmy() {
-    System.out.println("\n=== Current Army ===");
-    System.out.println(player.getVillage().getArmy());
-}
-
 
     private void attack() {
     int totalPower = player.getVillage().getArmy().getTroops()

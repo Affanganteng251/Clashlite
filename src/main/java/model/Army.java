@@ -8,17 +8,17 @@ import java.util.ArrayList;
 
 public class Army {
     private ArrayList<Troop> troops;
-    private int capacity;   // kapasitas maksimum
+    private int capacity;   
     private int maxCapacity;
 
     public Army() {
         this.troops = new ArrayList<>();
-        this.maxCapacity = 5; // kapasitas awal 5 troop
+        this.maxCapacity = 5; 
     }
 
     public boolean addTroop(Troop t) {
         if (troops.size() >= maxCapacity) {
-            return false; // army penuh
+            return false; 
         }
         troops.add(t);
         return true;
