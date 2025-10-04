@@ -9,6 +9,7 @@ public class Armycamp extends Building {
         super("Army Camp", 1);
     }
 
+    // upgrade dengan cek batas TownHall (implementasi contoh)
     public void upgrade(int townHallLevel) {
         int max = getMaxLevel(townHallLevel);
         if (this.level >= max) {
@@ -28,7 +29,8 @@ public class Armycamp extends Building {
         }
     }
 
-    public int getCapacityBonus() {
-        return (level - 1) * 2; // tiap level tambah 2 slot
+    // kapasitas yang disediakan oleh ArmyCamp (misal 5 slot per level)
+    public int getCapacity() {
+        return 5 * this.level;
     }
 }

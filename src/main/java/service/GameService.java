@@ -189,7 +189,7 @@ public class GameService {
             System.out.println("Defeat! Train more troops.");
         }
 
-        // After attack, troops are used
+        // After attack, troops are used 
         army.getTroops().clear();
         System.out.println("Your army has returned empty. You must recruit new troops!");
     }

@@ -6,37 +6,61 @@ package model;
 
 import java.util.ArrayList;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Army {
-    private ArrayList<Troop> troops;
-    private int capacity;   
-    private int maxCapacity;
+    private List<Troop> troops;
+    private int maxCapacity; // kapasitas saat ini
 
     public Army() {
         this.troops = new ArrayList<>();
-        this.maxCapacity = 5; 
+        this.maxCapacity = 0; // akan diset oleh Village sesuai ArmyCamp
     }
 
+    // tambahkan troop (kembalikan false jika penuh)
     public boolean addTroop(Troop t) {
         if (troops.size() >= maxCapacity) {
-            return false; 
+            return false;
         }
         troops.add(t);
         return true;
     }
 
+    // tingkatkan kapasitas (dipanggil saat upgrade ArmyCamp)
     public void increaseCapacity(int amount) {
         this.maxCapacity += amount;
+        if (this.maxCapacity < 0) this.maxCapacity = 0;
     }
 
-    public ArrayList<Troop> getTroops() { return troops; }
+    public void setCapacity(int capacity) {
+        this.maxCapacity = Math.max(0, capacity);
+    }
+
+    public int getTotalTroops() {
+        return troops.size();
+    }
+
+    public int getCapacity() {
+        return maxCapacity;
+    }
+
+    public List<Troop> getTroops() {
+        return troops;
+    }
+
+    public void clearTroops() {
+        troops.clear();
+    }
 
     @Override
     public String toString() {
-        if (troops.isEmpty()) return "No troops";
+        if (troops.isEmpty()) return "No troops (0/" + maxCapacity + ")";
         StringBuilder sb = new StringBuilder();
         for (Troop t : troops) {
             sb.append(t).append(", ");
         }
-        return sb.toString() + "(Capacity: " + troops.size() + "/" + maxCapacity + ")";
+        // hapus koma terakhir jika perlu
+        return sb.toString() + " (" + troops.size() + "/" + maxCapacity + ")";
     }
 }
