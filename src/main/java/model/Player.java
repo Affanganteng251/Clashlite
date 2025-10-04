@@ -6,24 +6,26 @@ package model;
 
 public class Player {
     private String name;
-    private int gold;
-    private int elixir;
     private Village village;
 
     public Player(String name) {
         this.name = name;
-        this.gold = 1000;
-        this.elixir = 500;
-        this.village = new Village(this);
+        this.village = new Village();  // resource ada di village
     }
 
     public String getName() { return name; }
-    public int getGold() { return gold; }
-    public int getElixir() { return elixir; }
     public Village getVillage() { return village; }
 
-    public void addGold(int amount) { this.gold += amount; }
-    public void addElixir(int amount) { this.elixir += amount; }
-    public void spendGold(int amount) { this.gold -= amount; }
-    public void spendElixir(int amount) { this.elixir -= amount; }
+    public void spendElixir(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void addGold(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void addElixir(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
+

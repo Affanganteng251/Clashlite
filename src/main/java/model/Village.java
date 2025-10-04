@@ -4,33 +4,51 @@
  */
 package model;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Village {
-    private Player owner;
-    private ArrayList<Building> buildings;
+    private int gold;
+    private int elixir;
+    private TownHall townHall;
+    private Barracks barracks;
+    private Armycamp armyCamp;
     private Army army;
 
-    public Village(Player owner) {
-        this.owner = owner;
-        this.buildings = new ArrayList<>();
+    public Village() {
+        this.gold = 1000;
+        this.elixir = 500;
+        this.townHall = new TownHall();
+        this.barracks = new Barracks();
+        this.armyCamp = new Armycamp();
         this.army = new Army();
-        buildings.add(new TownHall());
-        buildings.add(new Barracks());
-        buildings.add(new Armycamp());
     }
 
-    public Player getOwner() { return owner; }
-    public ArrayList<Building> getBuildings() { return buildings; }
+    // Getter & Setter untuk resource
+    public int getGold() { return gold; }
+    public void setGold(int gold) { this.gold = gold; }
+
+    public int getElixir() { return elixir; }
+    public void setElixir(int elixir) { this.elixir = elixir; }
+
+    // Getter untuk building
+    public TownHall getTownHall() { return townHall; }
+    public Barracks getBarracks() { return barracks; }
+    public Armycamp getArmyCamp() { return armyCamp; }
     public Army getArmy() { return army; }
 
+    // daftar semua bangunan (buat scanning seperti cari Barracks di recruitTroop)
+    public List<Building> getBuildings() {
+        return Arrays.asList(townHall, barracks, armyCamp);
+    }
+
+    // status desa
     public void showStatus() {
-        System.out.println("=== Village of " + owner.getName() + " ===");
-        for (Building b : buildings) {
-            System.out.println("- " + b);
-        }
-        System.out.println("Army: " + army);
-        System.out.println("Gold: " + owner.getGold() + " | Elixir: " + owner.getElixir());
+        System.out.println("Gold: " + gold + " | Elixir: " + elixir);
+        System.out.println(townHall);
+        System.out.println(barracks);
+        System.out.println(armyCamp);
+        System.out.println(army);
     }
 }
 

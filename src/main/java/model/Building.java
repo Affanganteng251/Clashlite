@@ -5,16 +5,20 @@
 package model;
 
 public abstract class Building {
-    public String name;
-    public int level;
+    protected String name;
+    protected int level;
 
-    public Building(String name) {
+    public Building(String name, int level) {
         this.name = name;
-        this.level = 1;
+        this.level = level;
     }
 
+    public String getName() { return name; }
+    public int getLevel() { return level; }
+
+    // default upgrade (no townhall limit check)
     public void upgrade() {
-        this.level++;
+        level++;
     }
 
     @Override
