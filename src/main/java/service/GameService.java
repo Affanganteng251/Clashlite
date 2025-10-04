@@ -172,27 +172,32 @@ public class GameService {
     }
 
     private void attack() {
-        if (player == null) {
-            System.out.println("Start the game first (player not initialized).");
-            return;
-        }
-
-        Army army = player.getVillage().getArmy();
-        int totalPower = army.getTroops().stream().mapToInt(Troop::getPower).sum();
-        System.out.println("You attacked with total power " + totalPower);
-
-        if (totalPower > 100) {
-            System.out.println("Victory! You gained 200 gold and 100 elixir.");
-            player.addGold(200);
-            player.addElixir(100);
-        } else {
-            System.out.println("Defeat! Train more troops.");
-        }
-
-        // After attack, troops are used 
-        army.getTroops().clear();
-        System.out.println("Your army has returned empty. You must recruit new troops!");
+    if (player == null) {
+        System.out.println("Start the game first (player not initialized).");
+        return;
     }
+
+    Army army = player.getVillage().getArmy();
+    int totalPower = army.getTroops().stream().mapToInt(Troop::getPower).sum();
+    System.out.println("You attacked with total power " + totalPower);
+
+    if (totalPower >= 500) {
+        System.out.println("Legendary Victory! You gained 500 gold and 300 elixir.");
+        player.getVillage().setGold(player.getVillage().getGold() + 500);
+        player.getVillage().setElixir(player.getVillage().getElixir() + 300);
+    } else if (totalPower >= 200) {
+        System.out.println("Victory! You gained 200 gold and 100 elixir.");
+        player.getVillage().setGold(player.getVillage().getGold() + 200);
+        player.getVillage().setElixir(player.getVillage().getElixir() + 100);
+    } else {
+        System.out.println("Defeat! Train more troops.");
+    }
+
+    // Setelah attack, semua troops digunakan
+    army.getTroops().clear();
+    System.out.println("Your army has returned empty. You must recruit new troops!");
+}
+
 
     private void showArmy() {
         if (player == null) {
