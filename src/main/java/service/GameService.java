@@ -34,8 +34,8 @@ public class GameService {
             System.out.println("1. Show Village");
             System.out.println("2. Upgrade Building");
             System.out.println("3. Recruit Troop");
-            System.out.println("4. Attack");
-            System.out.println("5. Show Army");
+            System.out.println("4. Show Army");
+            System.out.println("5. Attack");
             System.out.println("0. Exit");
             System.out.print("Choose: ");
             if (!scanner.hasNextInt()) {
@@ -57,10 +57,10 @@ public class GameService {
                     recruitTroop();
                     break;
                 case 4:
-                    attack();
+                    showArmy();
                     break;
                 case 5:
-                    showArmy();
+                    attack();
                     break;
                 case 0:
                     System.out.println("Exiting game...");
