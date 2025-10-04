@@ -167,7 +167,7 @@ public class GameService {
         } catch (GameException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println("player adds troops : " + e.getMessage());
         }
     }
 
