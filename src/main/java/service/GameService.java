@@ -181,11 +181,11 @@ public class GameService {
     int totalPower = army.getTroops().stream().mapToInt(Troop::getPower).sum();
     System.out.println("You attacked with total power " + totalPower);
 
-    if (totalPower >= 500) {
+    if (totalPower >=500) {
         System.out.println("Legendary Victory! You gained 500 gold and 300 elixir.");
         player.getVillage().setGold(player.getVillage().getGold() + 500);
         player.getVillage().setElixir(player.getVillage().getElixir() + 300);
-    } else if (totalPower >= 200) {
+    } else if (totalPower >=200) {
         System.out.println("Victory! You gained 200 gold and 100 elixir.");
         player.getVillage().setGold(player.getVillage().getGold() + 200);
         player.getVillage().setElixir(player.getVillage().getElixir() + 100);
