@@ -125,4 +125,4 @@ Struktur package dan class:
 </ul>
 
 <h2>Penjelasan lengkap</h2>
-<h3>Link Video Youtube = </h3>
+<h3>Link Video Youtube = https://www.youtube.com/watch?v=Kny_GhRM2C8</h3>
